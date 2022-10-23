@@ -1,0 +1,83 @@
+//listing
+SELECT * FROM products
+
+//listing by columns
+SELECT categoryid, unitprice FROM products
+
+//filtering
+SELECT * FROM products where categoryid = 3
+
+// or
+SELECT * FROM products where categoryid = 1 or categoryid =3;
+
+// and 
+SELECT * FROM products where categoryid = 1 and unitprice>=10;
+
+// different oeprator <>
+SELECT * FROM products where categoryid = 1 and unitprice<>10;
+
+//order by(from the smallest to the biggest)
+SELECT * FROM products ORDER BY productname;
+SELECT * FROM products ORDER BY categoryid,productname;
+SELECT * FROM products WHERE categoryid<=4 ORDER BY categoryid,productname;
+
+
+// order by in ascending way
+SELECT * FROM products ORDER BY productname asc;
+
+// order by in descending way
+SELECT * FROM products ORDER BY productname asc;
+
+//count() function
+SELECT count(*) FROM products where categoryid = 1 ;
+SELECT count(*)+50 FROM products where categoryid = 1 ;
+
+// as
+SELECT count(*)+50 as length FROM products where categoryid = 1 ;
+SELECT count(*)+50 length FROM products where categoryid = 1 ;
+
+//group by( hangi kategoride kac urun vardir)
+SELECT count(*) length FROM products group by categoryid;
+SELECT categoryid,count(*) FROM [products] group by categoryid
+
+// group by & order by
+SELECT categoryid,count(*) FROM [products] group by categoryid order by count(*) desc
+
+//having
+SELECT categoryid,count(*) FROM [products] group by categoryid having count(*) < 10
+
+
+//inner join 
+SELECT products.productid,products.productname, products.unitprice, categories.categoryname
+from products inner join categories
+on Products.categoryid = categories.categoryid
+
+//left join
+SELECT *
+FROM products as p left join orderdetails as od
+on p.productid = od.productid;
+(product olarak olup ama siparisi olmayan productlari getir)
+SELECT *
+FROM customers as c left join orders as o 
+on c.customerid= o.customerid
+(musteri olup ama siparis vermeyenlerinin de tabloya dahil ediyoruz)
+
+//null
+SELECT *
+FROM customers as c left join orders as o 
+on c.customerid= o.customerid where o.customerid is null;
+(musteri olup ama siparis vermeyenlerin sadece tablosunu getir)
+
+
+//right join(left joinin tam tersi)
+SELECT *
+FROM orders as o right join customers as c
+on c.customerid= o.customerid;
+
+//multiple join
+SELECT *
+from products inner join categories
+on Products.categoryid = categories.categoryid
+inner join orders
+on ....
+ 
